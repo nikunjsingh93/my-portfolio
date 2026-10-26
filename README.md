@@ -36,7 +36,6 @@ Repository: https://github.com/nikunjsingh93/my-portfolio
 
 GitHub Pages is configured to deploy through `.github/workflows/pages.yml`. Pushes to `main` run verification before deployment; pull requests run checks without publishing. The workflow builds a root-path copy for browser checks and a repository-path copy for deployment. Assets use Vite's base path, and navigation uses hash anchors without routing redirects.
 
-For a custom domain, follow [DOMAIN.md](DOMAIN.md). Do not enable an unapproved custom domain before its DNS is active.
 
 ## Content and provenance
 
