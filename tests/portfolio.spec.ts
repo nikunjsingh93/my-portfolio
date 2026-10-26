@@ -37,6 +37,8 @@ test("complete reading path, responsive assets and accessible content", async ({
     })),
   ).toEqual([]);
   if (testInfo.project.name === "mobile") {
+    await expect(page.locator("header")).toHaveCSS("position", "sticky");
+    expect((await page.locator("header").boundingBox())?.y).toBe(0);
     await page.getByRole("button", { name: "Menu +" }).click();
     await page
       .getByRole("navigation")
