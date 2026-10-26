@@ -1,60 +1,51 @@
 # Nikunj Singh — portfolio
 
-A recruiter-friendly editorial portfolio in React, Vite, TypeScript and Tailwind CSS. Dark charcoal, upright developer-style monospace typography, sage and muted rose, actual project imagery, and a small decorative Three.js sculpture. All case studies and experience are visible by scrolling.
+A dark, responsive developer portfolio built with React, TypeScript, Vite and Tailwind CSS. All project case studies are readable by scrolling. The decorative Three.js accent is optional and disabled for small screens and reduced motion.
 
-## Run
+## Development
 
-Requires Node 22.12+ (Node 24 recommended).
+Use Node 24 (minimum 22.12).
 
 ```sh
 npm ci
 npm run dev
-```
-
-```sh
 npm test
 npm run build
-npm run preview
 npm run test:e2e
+npm run format:check
 ```
 
-Browser tests use installed Microsoft Edge locally; CI installs Chromium. They check desktop, mobile and reduced-motion layouts, image loading, navigation, keyboard entry, page errors and WCAG A/AA with axe. Unit tests cover the reading path, source/contact links, disclosure of claimed metrics, and mobile menu behavior.
+Local browser tests use installed Microsoft Edge; CI installs Chromium. Tests cover desktop, mobile, reduced motion, real images, navigation, keyboard entry and automated WCAG A/AA checks.
 
-## GitHub Pages
+## Architecture
 
-The project folder is the repository root. Commit its contents (including package-lock.json and .github/) to your intended repository on `main`. In Settings → Pages, choose **GitHub Actions** as the build source. The included workflow tests and builds before deployment, supports manual runs, and does not deploy pull requests.
+- `src/App.tsx`: page composition and semantic landmarks.
+- `src/sections/`: Hero, Credentials, Work, Experience, About and Contact.
+- `src/components/`: Header, Footer, ProjectCard and decorative rendering boundary.
+- `src/content.ts`: project content and professional links.
+- `src/utils/assets.ts`: repository-subpath-aware asset URLs.
+- `src/styles.css`: shared dark theme, component rules and consolidated responsive breakpoints.
+- `src/Accent.tsx`: lazy-loaded Three.js scene with lifecycle cleanup.
+- `tests/`: Playwright browser and accessibility checks.
 
-The workflow automatically selects `/` for `<owner>.github.io` repositories and `/<repository>/` for project repositories. For a custom domain, set `VITE_BASE_PATH=/` in the workflow and add your own `public/CNAME`. For a local subpath build:
+The page needs no backend, credentials, runtime API calls or analytics. DM Sans is locally bundled for contact links; developer typography uses system monospace fonts.
 
-```sh
-VITE_BASE_PATH=/portfolio/ npm run build
-```
+## Deployment
 
-PowerShell: `$env:VITE_BASE_PATH='/portfolio/'; npm run build`.
+Repository: https://github.com/nikunjsingh93/my-portfolio
 
-The site uses ordinary hash anchors, so section links work without a single-page-app redirect or 404 workaround. Assets and any future résumé use Vite's base path.
+GitHub Pages is configured to deploy through `.github/workflows/pages.yml`. Pushes to `main` run verification before deployment; pull requests run checks without publishing. The workflow builds a root-path copy for browser checks and a repository-path copy for deployment. Assets use Vite's base path, and navigation uses hash anchors without routing redirects.
 
-Source repository: https://github.com/nikunjsingh93/my-portfolio. GitHub Pages deployment is handled by the included workflow; check the Actions tab for its latest state.
+For a custom domain, follow [DOMAIN.md](DOMAIN.md). Do not enable an unapproved custom domain before its DNS is active.
 
-## Edit content
+## Content and provenance
 
-- `src/content.ts`: projects, public URLs, résumé setting.
-- `src/App.tsx`: hero, experience, about, contact.
-- `src/styles.css`: visual system and responsive/print rules.
-- `public/assets/`: locally served, compressed project imagery.
+The candidate provided professional details and the email `nikunj.singh@live.com`. No employer screenshots, internal data, unsupported employment dates or testimonials are included. The 30% load improvement and 20% engagement improvement are clearly marked as candidate-reported resume figures.
 
-No real résumé file was available in the workspace or referenced conversation. There is no placeholder or broken résumé link. Add the candidate's real PDF to `public/`, set `links.resume` to its filename, and the download link appears in the contact section.
+Official project imagery is locally compressed; sources and notices are in [ASSETS.md](ASSETS.md) and `public/assets/licenses/`.
 
-Contact uses the candidate-provided email address, LinkedIn profile and GitHub account. No availability claim, unsupported employment dates, testimonials, or proprietary enterprise screenshots have been invented. The 30% page-load improvement and 20% engagement improvement are candidate-reported résumé claims, labeled as such; no internal measurements are asserted as independently verified.
+No original resume PDF was available. Add the actual PDF to `public/` and set `links.resume` in `src/content.ts` to display a valid download.
 
-## Assets and claim provenance
+## Accessibility and performance
 
-See [ASSETS.md](ASSETS.md). Screenshots were retrieved from the candidate's public repositories and official app listing for the requested portfolio. They represent the products; framed compositions are presentation only. Keep original ownership and license notices when reusing them elsewhere.
-
-## Performance and accessibility
-
-Self-hosted fonts, local WebP images, lazy loading below the fold and a separately loaded Three.js chunk. The 3D detail is decorative, disabled on small screens and with reduced motion, pauses rendering offscreen/when the document is hidden, and has a static fallback for WebGL or chunk failures. Content never depends on it. No scroll-jacking, splash, mandatory animation, trackers or external font requests.
-
-Semantic landmarks, a keyboard skip link, visible focus states, mobile menu Escape behavior, real anchor navigation, image alternatives, print styling, and reduced-motion CSS are included. Font licenses are supplied by the Fontsource packages; build output is static.
-
-
+Semantic landmarks, keyboard skip link, visible focus, Escape-aware mobile navigation, reduced-motion support and a print layout. Main content never waits for the decorative 3D scene. Below-fold images load lazily; WebGL resources are disposed on unmount and rendering pauses while offscreen or hidden. Automated accessibility checks supplement manual review; they do not constitute a full assistive-technology audit.

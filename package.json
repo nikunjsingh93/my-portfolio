@@ -9,11 +9,12 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "format": "prettier --write src tests *.ts *.json index.html .github/workflows/*.yml",
+    "format:check": "prettier --check src tests *.ts *.json index.html .github/workflows/*.yml"
   },
   "dependencies": {
     "@fontsource/dm-sans": "^5.2.6",
-    "@fontsource/instrument-serif": "^5.2.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "three": "^0.180.0"
@@ -31,11 +32,13 @@
     "@types/three": "^0.180.0",
     "@vitejs/plugin-react": "^5.0.3",
     "jsdom": "^27.0.0",
-    "sharp": "^0.34.4",
+    "prettier": "^3.9.10",
     "tailwindcss": "^4.1.13",
     "typescript": "~5.9.2",
     "vite": "^7.1.7",
     "vitest": "^3.2.4"
   },
-  "engines": { "node": ">=22.12.0" }
+  "engines": {
+    "node": ">=22.12.0"
+  }
 }
